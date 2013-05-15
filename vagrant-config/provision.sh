@@ -54,6 +54,10 @@ hash node 2>&- || {
 # Write custom dotfiles over the $HOME dotfiles
 cp /vagrant/vagrant-config/dotfiles/. ~/ --recursive --verbose
 
+# Install fish
+cp /vagrant/vagrant-config/fish_2.0.0-201305151006_amd64.deb ~/tmp
+sudo dpkg -i ~/tmp/fish_2.0.0-201305151006_amd64.deb
+
 cd /vagrant
 bundle 1>/dev/null
 echo 'Regenerating binstubs (allows you to omit "bundle exec" from commands)'
