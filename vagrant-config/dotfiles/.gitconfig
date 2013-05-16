@@ -1,10 +1,10 @@
 [user]
-	name = Tom Kenny
-	email = tom.kenny2@gmail.com
+  name = Tom Kenny
+  email = tom.kenny2@gmail.com
 [core]
-	autocrlf = false
+  autocrlf = false
 [push]
-	default = simple
+  default = simple
 [alias]
   c = commit
   br = branch
@@ -40,9 +40,9 @@
   remote = origin
   merge = refs/heads/master
 # Url shorthands
-[url "https://"]
+[url "https://twome@"]
   insteadOf = git://
-[url "https://gist.github.com/"]
+[url "git://gist.github.com/"]
   insteadOf = "gist:"
-[url "https://github.com/"]
-  insteadOf = "bh:"
+[url "git://github.com/"]
+  insteadOf = "gh:"

@@ -19,9 +19,8 @@ alias egrep='egrep --color=auto'
 alias path='echo -e ${PATH//:/\\n}'
 
 # better ls
-alias ls='ls -hA'
 alias lll='ls -alF'
-alias l='ls -CF'
+alias l='ls -hACF'
 
 alias lx='ls -lXB'         #  Sort by extension.
 alias lk='ls -lSr'         #  Sort by size, biggest last.
@@ -38,7 +37,6 @@ alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
 
 # navigation
 alias h='history'
-alias cs='cd $1; ls -alF'
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
