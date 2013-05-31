@@ -2,7 +2,8 @@
   name = Tom Kenny
   email = tom.kenny2@gmail.com
 [core]
-  autocrlf = false
+  safecrlf = warn
+  autocrlf = true
 [push]
   default = simple
 [alias]

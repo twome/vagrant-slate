@@ -77,11 +77,14 @@ alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
 # ROT13-encode text. Works for decoding, too! ;)
 alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 
-# Binarize and launch a program
-alias gogogo='chmod +x $1 && . $1'
-
 # URL-encode strings
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+
+alias b='bundle'
+
+function bundles() {
+	bundle | grep -v '^Using ' | grep -v ' is complete' | sed '/^$/d'
+}
 
 # One of @janmoesen’s ProTip™s
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do

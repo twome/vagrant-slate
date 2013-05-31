@@ -6,22 +6,28 @@ apt-get update --yes > /dev/null
 # descriptor (not file, hence the "&") "-", which I think is just null - so
 # this just ignores errors
 
-hash curl 		2>&- || apt-get install curl --yes
-hash vim 		2>&- || apt-get install vim --yes
-hash zsh 		2>&- || apt-get install zsh --yes
-hash g++ 		2>&- || apt-get install g++ --yes
-hash make 		2>&- || apt-get install make --yes
-hash tmux 		2>&- || apt-get install tmux --yes
+hash build-essential 2>&- || apt-get install build-essential --yes
+hash curl 2>&- || apt-get install curl --yes
+hash vim 2>&- || apt-get install vim --yes
+hash zsh 2>&- || apt-get install zsh --yes
+hash g++ 2>&- || apt-get install g++ --yes
+hash make 2>&- || apt-get install make --yes
+hash tmux 2>&- || apt-get install tmux --yes
+hash xclip 2>&- || apt-get install xclip --yes
+hash jpegoptim 2>&- || apt-get install jpegoptim --yes
+hash optipng 2>&- || apt-get install optipng --yes
 
 # Pythonz - Python version manager
-hash python 	2>&- || {
+hash pythonz 2>&- || {
 	curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash
-	echo "[[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc" >> ~/.bashrc
-	. ~/.bashrc
+	echo "[[ -s /home/vagrant/.pythonz/etc/bashrc ]] && . /home/vagrant/.pythonz/etc/bashrc" >> /home/vagrant/.bashrc
+	. /home/vagrant/.bashrc
+	apt-get --yes install python-pip
+	pip install virtualenv virtualenvwrapper
 	pythonz install --verbose 2.7.4 3.3.1
 }
 
-# Git - latest version + git flow
+# Git - latest version + git flow + hub + ftp
 hash git 2>&- || {
 	echo 'Installing latest git'
 	apt-get --yes install python-software-properties
@@ -30,6 +36,12 @@ hash git 2>&- || {
 	apt-get --yes update
 	apt-get --yes upgrade
 	apt-get --yes install git-flow
+	curl http://defunkt.io/hub/standalone -sLo ~/bin/hub && chmod +x ~/bin/hub
+	git clone https://github.com/git-ftp/git-ftp.git /vagrant/home/utils/git-ftp
+	cd /vagrant/home/utils/git-ftp
+	git checkout master
+	sudo make install
+	cd ~
 }
 
 # Ruby Version Manager
@@ -39,6 +51,7 @@ hash rvm 2>&- || {
 	. /usr/local/rvm/scripts/rvm
 	rvm install 1.9.3
 	rvm --default use 1.9.3
+	gem install chef
 }
 
 # n - a simple node version manager
@@ -50,13 +63,13 @@ hash node 2>&- || {
 	npm install --global n
 	n stable
 }
-
-# Write custom dotfiles over the $HOME dotfiles
-cp /vagrant/vagrant-config/dotfiles/. ~/ --recursive --verbose
-
-# Install fish
-cp /vagrant/vagrant-config/fish_2.0.0-201305151006_amd64.deb ~/tmp
-sudo dpkg -i ~/tmp/fish_2.0.0-201305151006_amd64.deb
+echo "Wait, whats my home dir?"
+echo ~
+# Write custom dotfiles over the /home/vagrant dotfiles
+cp /vagrant/vagrant-config/dotfiles/. /home/vagrant/ --recursive --verbose
+# Re-source bash config so all the new variables, aliases etc are available in
+# this script as it runs
+. /home/vagrant/.bashrc
 
 cd /vagrant
 bundle 1>/dev/null
@@ -73,8 +86,9 @@ node --version
 echo '-- Git:'
 git --version
 
-alias ruboot='gogogo /vagrant/vagrant-config/boot.rb'
-
-echo 'Run `ruboot` to run the Ruby init.'
-echo 'Remember to `git glow init` before you make anything.'
+echo '=-=-=-=-=-=-=-=-=-=-=-='
+echo 'Provisioning completed!'
+echo '=-=-=-=-=-=-=-=-=-=-=-='
+# echo "alias rubyinit='ruby /vagrant/vagrant-config/boot.rb'" >> /home/vagrant/.bash_aliases
+# echo 'Run `rubyinit` to start the server and site generator'
 echo 'Righto, back to you.'
