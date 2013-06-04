@@ -4,6 +4,11 @@
 [core]
   safecrlf = warn
   autocrlf = true
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = true
 [push]
   default = simple
 [alias]
@@ -14,6 +19,7 @@
   dump = cat-file -p
   # View the SHA, description, and history graph of the latest 20 commits
   l = log --pretty=oneline -n 20 --graph
+  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
   # View the current working tree status using the short format
   s = status -s
   # Show the diff between the latest commit and the current state
@@ -43,7 +49,7 @@
 # Url shorthands
 [url "https://twome@"]
   insteadOf = git://
-[url "git://gist.github.com/"]
+[url "https://twome@gist.github.com/"]
   insteadOf = "gist:"
-[url "git://github.com/"]
+[url "https://twome@github.com/"]
   insteadOf = "gh:"
