@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 export DEBIAN_FRONTEND=noninteractive
+date >> /vagrant/tmp/provisioning.log
 apt-get update --yes > /dev/null
 
 # 2>&- redirects the output of file descriptor "2", which is stderr, to file
@@ -37,8 +38,8 @@ hash git 2>&- || {
 	apt-get --yes upgrade
 	apt-get --yes install git-flow
 	curl http://defunkt.io/hub/standalone -sLo ~/bin/hub && chmod +x ~/bin/hub
-	git clone https://github.com/git-ftp/git-ftp.git /vagrant/home/utils/git-ftp
-	cd /vagrant/home/utils/git-ftp
+	git clone https://github.com/git-ftp/git-ftp.git /home/vagrant/utils/git-ftp
+	cd /home/vagrant/utils/git-ftp
 	git checkout master
 	sudo make install
 	cd ~
@@ -62,6 +63,7 @@ hash node 2>&- || {
 	apt-get --yes install nodejs
 	npm install --global n
 	n stable
+	npm update --global npm
 }
 echo "Wait, whats my home dir?"
 echo ~
@@ -91,4 +93,6 @@ echo 'Provisioning completed!'
 echo '=-=-=-=-=-=-=-=-=-=-=-='
 # echo "alias rubyinit='ruby /vagrant/vagrant-config/boot.rb'" >> /home/vagrant/.bash_aliases
 # echo 'Run `rubyinit` to start the server and site generator'
+date >> /vagrant/tmp/provisioning.log
+date
 echo 'Righto, back to you.'

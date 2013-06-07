@@ -54,7 +54,18 @@ alias v="cd /vagrant"
 alias gurl='curl --compressed'
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='sudo apt-get update --yes; sudo apt-get upgrade --yes; npm update npm -g; npm update -g; sudo gem update'
+function update(){
+	sudo apt-get update --yes
+	sudo apt-get upgrade --yes
+	npm update npm -g
+	npm update -g
+	sudo gem update
+	# Write custom dotfiles over the /home/vagrant dotfiles
+	cp /vagrant/vagrant-config/dotfiles/. /home/vagrant/ --recursive --verbose
+	# Re-source bash config so all the new variables, aliases etc are available in
+	# this script as it runs
+	. /home/vagrant/.bashrc
+}
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -79,6 +90,8 @@ alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 
 # URL-encode strings
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+
+alias updatedotfiles
 
 alias b='bundle'
 
