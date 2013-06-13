@@ -50,6 +50,9 @@ alias h="history"
 alias j="jobs"
 alias v="cd /vagrant"
 
+# Open in Sublime Text
+alias sublime='/c/apps/Sublime\ Text\ 2.0.1/sublime_text.exe $1'
+
 # Gzip-enabled `curl`
 alias gurl='curl --compressed'
 
